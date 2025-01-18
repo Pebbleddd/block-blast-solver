@@ -12,29 +12,30 @@ public class Main {
     private static int[][] grid = new int[8][8];
     public static void main(String[] args) {
 
-        // Fill Row
-        grid[0][0] = 1;
-        grid[0][1] = 1;
-        grid[0][2] = 1;
-        grid[0][3] = 1;
-        grid[0][4] = 1;
-        grid[0][5] = 1;
-        grid[0][6] = 1;
-        grid[0][7] = 1;
-
-        // Fill Column
-        grid[0][1] = 1;
-        grid[1][1] = 1;
-        grid[2][1] = 1;
-        grid[3][1] = 1;
-        grid[4][1] = 1;
-        grid[5][1] = 1;
-        grid[6][1] = 1;
-        grid[7][1] = 1;
-
+//        // Fill Row
+//        grid[0][0] = 1;
+//        grid[0][1] = 1;
+//        grid[0][2] = 1;
+//        grid[0][3] = 1;
+//        grid[0][4] = 1;
+//        grid[0][5] = 1;
+//        grid[0][6] = 1;
+//        grid[0][7] = 1;
+//
+//        // Fill Column
+//        grid[0][1] = 1;
+//        grid[1][1] = 1;
+//        grid[2][1] = 1;
+//        grid[3][1] = 1;
+//        grid[4][1] = 1;
+//        grid[5][1] = 1;
+//        grid[6][1] = 1;
+//        grid[7][1] = 1;
+        LeftL leftL = new LeftL();
         GridUtil.printGrid(grid);
         System.out.println();
         System.out.println();
+
         int removedBlocks = GridUtil.clearCompletedRow(grid);
         GridUtil.printGrid(grid);
         System.out.println("removedBlocks = " + removedBlocks);

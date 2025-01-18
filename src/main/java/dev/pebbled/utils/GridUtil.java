@@ -1,5 +1,7 @@
 package dev.pebbled.utils;
 
+import dev.pebbled.Main;
+
 import java.util.*;
 
 public class GridUtil {
@@ -52,6 +54,7 @@ public class GridUtil {
 
         // Remove blocks from found indices
         int removed = 0;
+
         for (Map.Entry<Integer, Set<Integer>> entry : indices.entrySet()) {
             int rowIndex = entry.getKey();
 

@@ -17,15 +17,6 @@ public class LeftL extends Block {
         };
     }
 
-    public int[][] getIndices2D(int rowPos, int columnPos) {
-        return new int[][] {
-                {rowPos, columnPos},
-                {rowPos + 1, columnPos},
-                {rowPos + 2, columnPos},
-                {rowPos + 2, columnPos + 1}
-        };
-    }
-
     public HashMap<Integer, Set<Integer>> getIndices(int rowPosition, int columnPosition) {
         HashMap<Integer, Set<Integer>> hashMap = new HashMap<>();
         hashMap.put(rowPosition, Set.of(columnPosition));
