@@ -4,6 +4,8 @@ import java.util.*;
 
 public class GridUtil {
 
+    private static final int[] FULL_ROW = {1, 1, 1, 1, 1, 1, 1, 1};
+
     public static boolean isSpaceEmpty(int[][] grid, HashMap<Integer, Set<Integer>> indices) {
         for (Map.Entry<Integer, Set<Integer>> entry : indices.entrySet()) {
             int rowIndex = entry.getKey();
@@ -23,33 +25,32 @@ public class GridUtil {
     public static int clearCompletedRow(int[][] grid) {
         HashMap<Integer, Set<Integer>> indices = new HashMap<>();
 
-        int[] full = {
-                1, 1, 1, 1, 1, 1, 1, 1,
-        };
-
+        // Find completed rows
         for (int row = 0; row < grid.length; row++) {
             indices.put(row, new HashSet<>());
-            if (Arrays.equals(grid[row], full)) {
+            if (Arrays.equals(grid[row], FULL_ROW)) {
                 for (int i = 0; i < grid.length; i++) {
                     indices.get(row).add(i);
                 }
             }
         }
 
-        for (int col = 0; col < grid[0].length; col++) { // Loop through columns
-            int[] column = new int[grid.length]; // Temporary array to store column values
+        // Find completed columns
+        for (int col = 0; col < grid[0].length; col++) {
+            int[] column = new int[grid.length];
 
             for (int row = 0; row < grid.length; row++) {
-                column[row] = grid[row][col]; // Collect column values
+                column[row] = grid[row][col];
             }
 
-            if (Arrays.equals(column, full)) { // Check if the column matches
+            if (Arrays.equals(column, FULL_ROW)) {
                 for (int i = 0; i < grid.length; i++) {
                     indices.get(i).add(col);
                 }
             }
         }
 
+        // Remove blocks from found indices
         int removed = 0;
         for (Map.Entry<Integer, Set<Integer>> entry : indices.entrySet()) {
             int rowIndex = entry.getKey();
@@ -59,7 +60,8 @@ public class GridUtil {
                 removed++;
             }
         }
-    return removed;
+
+        return removed;
     }
 
     public static void printGrid(int[][] grid) {
