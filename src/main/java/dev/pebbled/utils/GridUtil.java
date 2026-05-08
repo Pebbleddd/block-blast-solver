@@ -71,15 +71,12 @@ public class GridUtil {
     public static float calculateScore(Grid gridInstance) {
 
         int[][] grid = gridInstance.getGrid();
-//        printGrid(grid);
-//        System.out.println();
-//        System.out.println();
+
         int blocksCleared = gridInstance.getClearedBlockCount();
 
         float largestArea = (float) (largestArea(grid) * 0.25);
-
         float clearedArea = (float) (blocksCleared * 0.5);  // Higher weight for blocks broken
-        //System.out.println(blocksCleared);
+
         return largestArea + clearedArea;
     }
 
