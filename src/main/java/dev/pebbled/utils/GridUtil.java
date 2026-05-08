@@ -1,6 +1,7 @@
 package dev.pebbled.utils;
 
-import dev.pebbled.Main;
+import dev.pebbled.algorithm.FloodFill;
+import dev.pebbled.grid.Grid;
 
 import java.util.*;
 
@@ -8,16 +9,16 @@ public class GridUtil {
 
     private static final int[] FULL_ROW = {1, 1, 1, 1, 1, 1, 1, 1};
 
-    public static boolean isSpaceEmpty(int[][] grid, HashMap<Integer, Set<Integer>> indices) {
-        for (Map.Entry<Integer, Set<Integer>> entry : indices.entrySet()) {
-            int rowIndex = entry.getKey();
-
-            for (int index : entry.getValue()) {
-                if (rowIndex < 0 || rowIndex >= grid.length || index < 0 || index >= grid[rowIndex].length) {
-                    return false;
-                }
-                if (grid[rowIndex][index] == 1) {
-                    return false;
+    public static boolean isSpaceEmpty(int[][] grid, boolean[][] shape, int rowAnchor, int columnAnchor) {
+        for (int i = 0; i < shape.length; i++) {
+            for (int j = 0; j < shape[i].length; j++) {
+                if (shape[i][j]) {
+                    if (i + rowAnchor < 0 || i + rowAnchor >= grid.length || j + columnAnchor < 0 || j + columnAnchor >= grid[0].length) {
+                        return false;
+                    }
+                    if (grid[i + rowAnchor][j + columnAnchor] == 1) {
+                        return false;
+                    }
                 }
             }
         }
@@ -67,6 +68,36 @@ public class GridUtil {
         return removed;
     }
 
+    public static float calculateScore(Grid gridInstance) {
+
+        int[][] grid = gridInstance.getGrid();
+//        printGrid(grid);
+//        System.out.println();
+//        System.out.println();
+        int blocksCleared = gridInstance.getClearedBlockCount();
+
+        float largestArea = (float) (largestArea(grid) * 0.25);
+
+        float clearedArea = (float) (blocksCleared * 0.5);  // Higher weight for blocks broken
+        //System.out.println(blocksCleared);
+        return largestArea + clearedArea;
+    }
+
+    public static int largestArea(int[][] grid) {
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        int maxArea = 0;
+
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[0].length; col++) {
+                if (grid[row][col] == 0 && !visited[row][col]) { // If ⬛ and not visited
+                    int area = FloodFill.floodFill(grid, visited, row, col);
+                    maxArea = Math.max(maxArea, area); // Track the largest area
+                }
+            }
+        }
+        return maxArea;
+    }
+
     public static void printGrid(int[][] grid) {
         for (int[] row : grid) {
             for (int cell : row) {
@@ -74,5 +105,13 @@ public class GridUtil {
             }
             System.out.println(); // New line for each row
         }
+    }
+
+    public static int[][] cloneGrid(int[][] grid) {
+        int[][] copyGrid = new int[grid.length][];
+        for (int i = 0; i < grid.length; i++) {
+            copyGrid[i] = grid[i].clone(); // Clones each inner array
+        }
+        return copyGrid;
     }
 }

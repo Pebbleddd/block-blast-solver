@@ -1,22 +1,14 @@
 package dev.pebbled.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 public class BlockUtil {
 
-    public static void placeBlock(int[][] grid, HashMap<Integer, Set<Integer>> indices) {
-        try {
-            for (Map.Entry<Integer, Set<Integer>> entry : indices.entrySet()) {
-                int rowIndex = entry.getKey();
-                for (int index : entry.getValue()) {
-                    grid[rowIndex][index] = 1;
+    public static void placeBlock(int[][] grid, boolean[][] shape, int rowAnchor, int columnAnchor) {
+        for (int i = 0; i < shape.length; i++) {
+            for (int j = 0; j < shape[i].length; j++) {
+                if (shape[i][j]) {
+                    grid[i + rowAnchor][j + columnAnchor] = 1;
                 }
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new RuntimeException("This shouldn't of happened?");
         }
     }
-
 }

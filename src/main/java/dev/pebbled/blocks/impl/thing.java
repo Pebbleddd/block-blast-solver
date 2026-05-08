@@ -2,21 +2,20 @@ package dev.pebbled.blocks.impl;
 
 import dev.pebbled.blocks.IBlock;
 
-import java.util.HashMap;
-import java.util.Set;
 
-public class TwoByTwo implements IBlock {
+public class thing implements IBlock {
+
 
     @Override
     public boolean[][] getShape() {
         return new boolean[][] {
-                {true,  true},
-                {true,  true},
+                {false,  true, false},
+                {true,  true, true}
         };
     }
 
     @Override
     public String toString() {
-        return "two_by_two";
+        return "upthing";
     }
 }

@@ -1,15 +1,23 @@
 package dev.pebbled.blocks.impl;
 
-import dev.pebbled.blocks.Block;
+import dev.pebbled.blocks.IBlock;
 
-public class RightL extends Block {
+import java.util.HashMap;
+import java.util.Set;
+
+public class RightL implements IBlock {
+
     @Override
-    public int[] getIndices(int startIndex) {
-        return new int[]{
-                startIndex,
-                startIndex + 8,
-                startIndex + 16,
-                startIndex + 15,
+    public boolean[][] getShape() {
+        return new boolean[][] {
+                {false,  true},
+                {false,  true},
+                {true,  true },
         };
+    }
+
+    @Override
+    public String toString() {
+        return "right_l";
     }
 }
