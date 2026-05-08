@@ -1,21 +1,25 @@
 package dev.pebbled;
 
 import dev.pebbled.blocks.IBlock;
-import dev.pebbled.blocks.impl.BigRightL;
-import dev.pebbled.blocks.impl.RightL;
-import dev.pebbled.blocks.impl.thing;
+import dev.pebbled.blocks.impl.BigL;
+import dev.pebbled.blocks.impl.ReverseL;
+import dev.pebbled.blocks.impl.UpsideDownSmallT;
 import dev.pebbled.grid.Grid;
 import dev.pebbled.grid.Placement;
 import dev.pebbled.utils.BlockUtil;
 import dev.pebbled.utils.GridUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Main {
 
     //TODO send all 3 blocks try a position and add that position to a list and try another position check if that position is in the list and if it is make a new position until it finds one
-    private static int[][] grid = new int[8][8];
+    private static final int[][] grid = new int[8][8];
+
     public static void main(String[] args) {
 
         grid[0][1] = 1;
@@ -63,19 +67,7 @@ public class Main {
 
         GridUtil.printGrid(grid);
 
-//        Block bigRightL = new BigRightL();
-//
-//        BlockUtil.placeBlock(grid, bigRightL.getIndices(0, 0));
-//
-//        GridUtil.printGrid(grid);
-//
-//        System.out.println();
-//        System.out.println();
-//
-//        //TODO when checking if block has been placed in a place yet its checking it with a wrong grid
-//        System.out.println("SOMETINH");
-        calculateMoves(new RightL(), new thing(), new BigRightL());
-
+        calculateMoves(new ReverseL(), new UpsideDownSmallT(), new BigL());
     }
 
     private static void calculateMoves(IBlock a, IBlock b, IBlock c) {
@@ -95,7 +87,7 @@ public class Main {
             BlockUtil.placeBlock(something, placement.block().getShape(), placement.row(), placement.col());
             GridUtil.printGrid(something);
         });
-        System.out.println("DONE PLACING THINGYS");
+        System.out.println("DONE PLACING THINGS");
         for (int[][] ints : topGrid.getGridList()) {
             System.out.println();
             System.out.println();
@@ -127,19 +119,15 @@ public class Main {
                 thirdBlockBoards.addAll(getMoreGrids(secondBlockBoard, thirdBlock));
             }
 
-            LinkedHashSet<Grid> topGrid = thirdBlockBoards.stream()
-                    .sorted(Comparator.comparingDouble(GridUtil::calculateScore).reversed()) // Sort by score descending
-                    .limit(1)
-                    .collect(Collectors.toCollection(LinkedHashSet::new));
+            LinkedHashSet<Grid> topGrid = thirdBlockBoards.stream().sorted(Comparator.comparingDouble(GridUtil::calculateScore).reversed()) // Sort by score descending
+                    .limit(1).collect(Collectors.toCollection(LinkedHashSet::new));
 
             topGrids.addAll(topGrid);
 
         }
 
-        LinkedHashSet<Grid> topGrid = topGrids.stream()
-                .sorted(Comparator.comparingDouble(GridUtil::calculateScore).reversed()) // Sort by score descending
-                .limit(1)
-                .collect(Collectors.toCollection(LinkedHashSet::new));
+        LinkedHashSet<Grid> topGrid = topGrids.stream().sorted(Comparator.comparingDouble(GridUtil::calculateScore).reversed()) // Sort by score descending
+                .limit(1).collect(Collectors.toCollection(LinkedHashSet::new));
 
         return topGrid.getFirst();
     }

@@ -2,9 +2,6 @@ package dev.pebbled.blocks.impl;
 
 import dev.pebbled.blocks.IBlock;
 
-import java.util.HashMap;
-import java.util.Set;
-
 public class TwoByTwo implements IBlock {
 
     @Override
@@ -17,6 +14,6 @@ public class TwoByTwo implements IBlock {
 
     @Override
     public String toString() {
-        return "two_by_two";
+        return "TWO BY TWO";
     }
 }

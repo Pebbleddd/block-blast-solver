@@ -1,11 +1,7 @@
 package dev.pebbled.blocks.impl;
 
 import dev.pebbled.blocks.IBlock;
-
-import java.util.HashMap;
-import java.util.Set;
-
-public class BigRightL implements IBlock {
+public class BigL implements IBlock {
 
    @Override
    public boolean[][] getShape() {
@@ -18,6 +14,6 @@ public class BigRightL implements IBlock {
 
     @Override
     public String toString() {
-        return "BigRightL";
+        return "BIG L";
     }
 }
