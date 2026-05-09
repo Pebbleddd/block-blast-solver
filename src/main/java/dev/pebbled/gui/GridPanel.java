@@ -31,4 +31,19 @@ public class GridPanel extends JPanel {
             }
         }
     }
+
+    public void updateFromGrid(int[][] previous, int[][] current) {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                JPanel cell = cells[row][col];
+                if (current[row][col] == 0){
+                    cell.setBackground(Color.DARK_GRAY);
+                } else if (previous[row][col] == 0) {
+                    cell.setBackground(Color.GREEN);
+                } else {
+                    cell.setBackground(Color.MAGENTA);
+                }
+            }
+        }
+    }
 }
