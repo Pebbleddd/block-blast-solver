@@ -20,7 +20,7 @@ public class DrawingPanel extends JPanel {
                 final int c = col;
                 cell.addMouseListener(new MouseAdapter() {
                     @Override
-                    public void mouseClicked(java.awt.event.MouseEvent e) {
+                    public void mousePressed(java.awt.event.MouseEvent e) {
                         toggleCell(r, c);
                     }
                 });
