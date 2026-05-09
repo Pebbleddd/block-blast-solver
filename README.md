@@ -37,7 +37,7 @@ These 5 shapes are **placeholder examples** used to validate the solver — they
 
 `X` = filled cell, `.` = empty cell, `/` = next row.
 
-If the game gives you a shape outside this set, the CLI & GUI version cannot help with that round — that's an expected gap in this build, not a bug. The proper fix is custom-shape input, which lands with the GUI in full (see [Roadmap](#roadmap)).
+If the game gives you a shape outside this set, the CLI & GUI version cannot help with that round — that's an expected gap in this build, not a bug. The proper fix is custom-shaped input, which lands with the GUI in full (see [Roadmap](#roadmap)).
 
 ## How the solver works
 
@@ -109,7 +109,7 @@ src/main/java/dev/pebbled/
 ## Roadmap
 
 - [x] Swing GUI (basic): visual grid renderer, clickable block palette, state updates between rounds
-- [ ] GUI polish: visual feedback for selected blocks, in-window placement display, distinct color for new placements vs. carried-over cells
+- [ ] in-window placement display, distinct color for new placements vs. carried-over cells
 - [ ] Custom shape input — let the user draw shapes the game presents that aren't in the built-in palette
 - [ ] Save/load grid state across sessions
 - [ ] Manual grid input on startup (so the solver can pick up an in-progress game)

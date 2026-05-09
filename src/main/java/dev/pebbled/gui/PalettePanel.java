@@ -15,6 +15,7 @@ public class PalettePanel extends JPanel {
     );
 
     private final List<IBlock> selected = new ArrayList<>();
+    private final List<BlockPanel> blockPanels = new ArrayList<>();
 
     private final Consumer<List<IBlock>> onThreeSelected;
 
@@ -25,6 +26,7 @@ public class PalettePanel extends JPanel {
 
         for (IBlock block : AVAILABLE_BLOCKS) {
             BlockPanel blockPanel = new BlockPanel(block, this::handleBlockClick);
+            blockPanels.add(blockPanel);
             add(blockPanel);
         }
     }
@@ -32,9 +34,19 @@ public class PalettePanel extends JPanel {
     private void handleBlockClick(IBlock block) {
         selected.add(block);
         System.out.println("Selected: " + block + " (" + selected.size() + "/3)");
+
+        for (BlockPanel blockPanel : blockPanels) {
+            if (blockPanel.getBlock() == block) {
+                blockPanel.setSelected(true);
+            }
+        }
+
         if (selected.size() == 3) {
             onThreeSelected.accept(new ArrayList<>(selected));   // pass a COPY
             selected.clear();
+            for (BlockPanel blockPanel : blockPanels) {
+                blockPanel.setSelected(false);
+            }
         }
     }
 }

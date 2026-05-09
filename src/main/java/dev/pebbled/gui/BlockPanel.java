@@ -9,7 +9,10 @@ import java.awt.event.MouseEvent;
 import java.util.function.Consumer;
 
 public class BlockPanel extends JPanel {
+    private final IBlock block;
+
     public BlockPanel(IBlock block, Consumer<IBlock> onClick) {
+        this.block = block;
         boolean[][] shape = block.getShape();
 
         setLayout(new GridLayout(shape.length, shape[0].length,1,1));
@@ -33,6 +36,18 @@ public class BlockPanel extends JPanel {
         addMouseListener(listener);
         for (Component c : getComponents()) {
             c.addMouseListener(listener);
+        }
+    }
+
+    public IBlock getBlock() {
+        return block;
+    }
+
+    public void setSelected(boolean selected) {
+        if (selected) {
+            setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
+        } else {
+            setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
         }
     }
 }
