@@ -122,37 +122,45 @@ public class BlockBlastFrame extends JFrame {
     }
 
     private void showNextStep() {
-        if (currentStep + 1 < currentPlacements.size()) {
+        if (currentStep < currentPlacements.size()) {
             currentStep++;
             renderStep(currentStep);
         }
     }
 
     private void renderStep(int step) {
-        int[][] preStep = GridUtil.cloneGrid(this.grid);
-        for (int i = 0; i < step; i++) {
-            Placement p = currentPlacements.get(i);
-            BlockUtil.placeBlock(preStep, p.block().getShape(), p.row(), p.col());
-            GridUtil.clearCompletedRow(preStep);
-        }
+        if (step < currentPlacements.size()) {
+            int[][] preStep = GridUtil.cloneGrid(this.grid);
+            for (int i = 0; i < step; i++) {
+                Placement p = currentPlacements.get(i);
+                BlockUtil.placeBlock(preStep, p.block().getShape(), p.row(), p.col());
+                GridUtil.clearCompletedRow(preStep);
+            }
 
-        int[][] postStep = GridUtil.cloneGrid(preStep);
-        Placement current = currentPlacements.get(step);
-        BlockUtil.placeBlock(postStep, current.block().getShape(), current.row(), current.col());
-        gridPanel.updateFromGrid(preStep, postStep);
-        GridUtil.clearCompletedRow(postStep);
+            int[][] postStep = GridUtil.cloneGrid(preStep);
+            Placement current = currentPlacements.get(step);
+            BlockUtil.placeBlock(postStep, current.block().getShape(), current.row(), current.col());
+            gridPanel.updateFromGrid(preStep, postStep);
+            GridUtil.clearCompletedRow(postStep);
 
-        instructionsArea.setText(
-                "Step " + (step + 1) + " of " + currentPlacements.size() + ":\n" +
-                        "  Place " + current.block() + " at row " + current.row() + ", col " + current.col()
-        );
+            instructionsArea.setText(
+                    "Step " + (step + 1) + " of " + currentPlacements.size() + ":\n" +
+                            "  Place " + current.block() + " at row " + current.row() + ", col " + current.col()
+            );
+            nextButton.setEnabled(true);
+        } else {
+            int[][] finalState = GridUtil.cloneGrid(this.grid);
+            for (Placement p : currentPlacements) {
+                BlockUtil.placeBlock(finalState, p.block().getShape(), p.row(), p.col());
+                GridUtil.clearCompletedRow(finalState);
+            }
 
-        boolean hasMore = (step + 1 < currentPlacements.size());
-        nextButton.setEnabled(hasMore);
+            gridPanel.updateFromGrid(finalState);
+            instructionsArea.setText("Round complete. Click Draw Custom Shapes for the next round.");
+            nextButton.setEnabled(false);
 
-        if (!hasMore) {
             for (int r = 0; r < 8; r++) {
-                System.arraycopy(postStep[r], 0, this.grid[r], 0, 8);
+                System.arraycopy(finalState[r], 0, this.grid[r], 0, 8);
             }
             roundNumber++;
             setTitle("Block Blast Solver | Round - " + roundNumber);
