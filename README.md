@@ -1,6 +1,6 @@
 # Block Blast Solver
 
-A mixed command-line & GUI advisor for the mobile puzzle game **Block Blast**. You play the game on your phone; this program tells you the optimal way to place each set of 3 blocks the game deals you, on an 8×8 grid.
+An advisor for the mobile puzzle game **Block Blast**. You play the game on your phone; this program tells you the optimal way to place each set of 3 blocks the game deals you, on an 8×8 grid.
 
 > **Note on the block set:** the real Block Blast game has a much larger (and possibly procedurally varied) set of block shapes. The 5 shapes in this build are **temporary example blocks** I'm using to validate the solver pipeline end-to-end. Full block-set support is intentionally deferred until the GUI lands in full and the user can draw arbitrary shapes — see [Roadmap](#roadmap).
 
