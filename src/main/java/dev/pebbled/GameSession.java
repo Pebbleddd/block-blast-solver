@@ -49,7 +49,7 @@ public class GameSession {
         System.out.println("==================");
         System.out.println("Welcome to Block Blast Solver!");
         System.out.println("Coded by Pebbled");
-        System.out.println("https://github.com/Pebbled/BlockBlastSolver");
+        System.out.println("https://github.com/Pebbleddd/block-blast-solver");
         System.out.println("==================");
         GridUtil.printGrid(grid);
         System.out.println("==================");
