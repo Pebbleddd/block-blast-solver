@@ -11,10 +11,11 @@ public class Grid {
 
     private final List<Placement> placements = new ArrayList<>();
 
-
     private final List<int[][]> blockGridList = new ArrayList<>();
 
     private int clearedBlockCount = 0;
+
+    private int linesClearedScore = 0;
 
     public Grid(int[][] grid) {
         this.grid = GridUtil.cloneGrid(grid);
@@ -46,6 +47,14 @@ public class Grid {
 
     public void addClearedBlocks(int removedBlocks) {
         clearedBlockCount += removedBlocks;
+    }
+
+    public int getLinesClearedScore() {
+        return linesClearedScore;
+    }
+
+    public void setLinesClearedScore(int linesClearedScore) {
+        this.linesClearedScore += linesClearedScore;
     }
 
     public int[][] getGrid() {

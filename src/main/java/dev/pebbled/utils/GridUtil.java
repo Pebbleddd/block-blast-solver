@@ -73,11 +73,13 @@ public class GridUtil {
         int[][] grid = gridInstance.getGrid();
 
         int blocksCleared = gridInstance.getClearedBlockCount();
+        int linesScore = gridInstance.getLinesClearedScore();
 
         float largestArea = (float) (largestArea(grid) * 0.25);
         float clearedArea = (float) (blocksCleared * 0.5);  // Higher weight for blocks broken
+        float multiClearBonus = linesScore * 1f;            // Bonus for clearing multiple lines
 
-        return largestArea + clearedArea;
+        return largestArea + clearedArea + multiClearBonus;
     }
 
     public static int largestArea(int[][] grid) {
@@ -93,15 +95,6 @@ public class GridUtil {
             }
         }
         return maxArea;
-    }
-
-    public static void printGrid(int[][] grid) {
-        for (int[] row : grid) {
-            for (int cell : row) {
-                System.out.print((String.valueOf(cell).equals("0")) ? "⬛" : "🟪");
-            }
-            System.out.println(); // New line for each row
-        }
     }
 
     public static int[][] cloneGrid(int[][] grid) {

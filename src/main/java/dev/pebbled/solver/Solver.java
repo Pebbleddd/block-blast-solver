@@ -66,14 +66,18 @@ public class Solver {
                 if (GridUtil.isSpaceEmpty(copyGrid, block.getShape(), rowIndex, columnIndex)) {
                     BlockUtil.placeBlock(copyOfCopy, block.getShape(), rowIndex, columnIndex);  // Places block on grid
 
-
                     int blocksCleared = GridUtil.clearCompletedRow(copyOfCopy);  // see how many blocks cleared as of result of placing that block
-
-
+                    if (blocksCleared > 0) {
+                        // notes from thinking
+                        //TODO store combo increase for whole grid and then if the grid is accepted from the Grid.calcScore() calculate based on combo increase + linesCleared + clear space. but actually I need to  add that to the game session combo, at the start get the current combo from game session (maybe, might not even matter)
+                        // just update calculations session combo based on if any lines were cleared and at the end from calcing score just check which grid increased the combo the most + had the highest line clears because I dont need the exact updating score. I just need a score at the end of 3 blocks
+                    }
+                    int linesCleared = blocksCleared / 8;
+                    int score = (linesCleared * linesCleared);
                     Grid gridInstance = new Grid(copyOfCopy);
 
                     gridInstance.addClearedBlocks(blocksCleared);
-
+                    gridInstance.setLinesClearedScore(score);
                     gridInstance.addGridToList(copyOfCopy);
                     gridInstance.addPlacement(new Placement(block, rowIndex, columnIndex));
                     validGrids.add(gridInstance);
@@ -102,9 +106,14 @@ public class Solver {
                     Grid newGridInstance = new Grid(copyOfCopy);
 
                     int blocksCleared = GridUtil.clearCompletedRow(copyOfCopy);  // see how many blocks cleared as of result of placing that block
+                    if (blocksCleared > 0) {
+                        //TODO update
+                    }
+                    int linesCleared = blocksCleared / 8;
+                    int score = (linesCleared * linesCleared);
 
                     newGridInstance.addClearedBlocks(blocksCleared + gridInstance.getClearedBlockCount());
-
+                    newGridInstance.setLinesClearedScore(score + gridInstance.getLinesClearedScore());
                     newGridInstance.addGrid(copyOfCopy);
 
                     List<int[][]> blockGridList = gridInstance.getGridList();
@@ -140,7 +149,7 @@ public class Solver {
 
             List<List<IBlock>> subCombinations = generateBlockCombinations(remainingBlocks);
 
-            // Prepend current block to each sub-combinations
+            // Prepend current block to all sub-combinations
             for (List<IBlock> subPermutation : subCombinations) {
                 List<IBlock> newPermutation = new ArrayList<>();
                 newPermutation.add(currentBlock);
